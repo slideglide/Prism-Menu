@@ -85,7 +85,7 @@ void BrownAlertDelegate::onClose(cocos2d::CCObject* pSender) {
 #include <Geode/utils/web.hpp>
 #include <Geode/utils/file.hpp>
 
-bool ProgressBar::init() { // on purpose im not even providing any params because why would we!?
+bool ProgressBarNode::init() { // on purpose im not even providing any params because why would we!?
     progressBar->setPosition({3, 8});
     progressBar->setAnchorPoint({ 0, 0.5 });
     progressBar->setTextureRect(CCRect(0, 0, 204, 8));
@@ -97,14 +97,14 @@ bool ProgressBar::init() { // on purpose im not even providing any params becaus
     return true;
 }
 
-void ProgressBar::setProgress(float percentage) {
+void ProgressBarNode::setProgress(float percentage) {
     this->m_pPercentage = percentage;
     float realPercentage = (204/100) * this->m_pPercentage; // "Result of integer division used in a floating point" ok i know clangd warnings wow
     progressBar->setTextureRect(CCRect(0, 0, realPercentage, 8));
 }
 
-ProgressBar* ProgressBar::create() {
-    auto pRet = new ProgressBar();
+ProgressBarNode* ProgressBarNode::create() {
+    auto pRet = new ProgressBarNode();
 
     if (pRet && pRet->init()) {
         pRet->autorelease();
@@ -121,7 +121,7 @@ int DownloadManager::progress_func(void*, double totalDownload, double downloadA
     if (totalDownload <= 0.0) return 0;
     float amountDownloaded = round((downloadAmount / totalDownload) * 100);
     auto scene = CCDirector::sharedDirector()->getRunningScene();
-    auto layer = reinterpret_cast<ProgressBar*>(reinterpret_cast<CCLayer*>(reinterpret_cast<CCLayer*>(scene->getChildByTag(6942084))->getChildren()->objectAtIndex(0))->getChildByTag(4592));
+    auto layer = reinterpret_cast<ProgressBarNode*>(reinterpret_cast<CCLayer*>(reinterpret_cast<CCLayer*>(scene->getChildByTag(6942084))->getChildren()->objectAtIndex(0))->getChildByTag(4592));
     if (layer != nullptr) {
         layer->setProgress(amountDownloaded);
     }
@@ -136,7 +136,7 @@ void DownloadManager::setup() {
     loading_circle->setScale(0.675f);
     loading_circle->setPositionY(20);
     loading_circle->show();
-    auto progressBar = ProgressBar::create();
+    auto progressBar = ProgressBarNode::create();
     progressBar->setPosition({ 280, 130 });
     progressBar->setProgress(0.0F);
     progressBar->setTag(4592);

@@ -14,13 +14,14 @@ class $modify(POPlayerHacks, PlayerObject) {
         return PlayerObject::collidedWithObject(fl, obj, p0, p1);
     }*/
     // No Solids
-    void collidedWithObject(float p0, GameObject* obj, cocos2d::CCRect p2, bool p3) { // what is the point of not having p2, because this doesnt work without it
+    bool collidedWithObject(float p0, GameObject* obj, cocos2d::CCRect p2, bool p3) { // what is the point of not having p2, because this doesnt work without it
          if (Hacks::isHackEnabled("Everything Hurts")) {
             if (auto playLayer = PlayLayer::get()) {
                 playLayer->destroyPlayer(this, obj);
             }
         }
         if (!Hacks::isHackEnabled("No Solids")) return PlayerObject::collidedWithObject(p0, obj, p2, p3);
+        return false;
     }
     // Freeze Player
     void update(float dt) {

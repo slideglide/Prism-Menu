@@ -22,7 +22,7 @@ class BrownAlertDelegate : public FLAlertLayer {
         virtual void onClose(cocos2d::CCObject*);
 };
 
-class ProgressBar : public CCNode {
+class ProgressBarNode : public CCNode {
     protected:
         float m_pPercentage = 0;
         CCSprite* outerBg = CCSprite::create("slidergroove.png");
@@ -31,7 +31,7 @@ class ProgressBar : public CCNode {
     public:
      void testProgressbar();
         virtual void setProgress(float percentage);
-        static ProgressBar* create();
+        static ProgressBarNode* create();
 };
 class DownloadManager : public BrownAlertDelegate {
     LoadingCircle* loading_circle = LoadingCircle::create();
